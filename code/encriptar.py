@@ -67,7 +67,10 @@ class Encriptar:
 
     def getL(self):
         return self.funciones_Secundarias.getL()
-
+    def getMensaje(self):
+        lista=self.logFile[-1].split(":")
+        mensaje=lista[1]
+        return mensaje
     def cifradoFinal(self):
         self.logFile.append("\n")
         self.logFile.append("\n")
@@ -99,7 +102,7 @@ class Encriptar:
             permutacion=self.final.agrupasicon4(self.final.permutacion(cajas))
             self.logFile.append("\n")
             self.logFile.append("-----------------------------------------------------------------------")
-            self.logFile.append("F(R"+str(i+1)+",k"+ str(i+1) +")"+str(permutacion))
+            self.logFile.append("F(R"+str(i+1)+",k"+ str(i+1) +"):"+str(permutacion))
 
             r0=permutacion.replace(" ","")
             self.switch[1]=self.switch[0]
@@ -113,3 +116,4 @@ class Encriptar:
         self.getKiLog()
         self.getIP()
         self.cifradoFinal()
+        self.getMensaje()
