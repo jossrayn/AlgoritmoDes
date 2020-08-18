@@ -23,28 +23,36 @@ class Encriptar:
         return pc
 
     def getCiLog(self):
+        self.logFile.append("-----------------------------------------------------------------------")
         self.logFile.append("Los Ci obtenedidos de la clave")
         ci=self.obtener_Clave.matrizRotacionesCi
         for i in range(len(ci)):
             texto="C"+str(i)+" "+str(ci[i][0])
             self.logFile.append(texto)
+        self.logFile.append("\n")
         return ci
     
     def getDiLog(self):
+        self.logFile.append("-----------------------------------------------------------------------")
         self.logFile.append("Los Di obtenedidos de la clave")
         di=self.obtener_Clave.matrizRotacionesDi
         for i in range(len(di)):
             texto="D"+str(i)+" "+str(di[i][0])
             self.logFile.append(texto)
+        self.logFile.append("\n")
         return di
     
     def getKiLog(self):
+        self.logFile.append("-----------------------------------------------------------------------")
         self.logFile.append("Los Ki obtenedidos de la clave")
         ki=self.obtener_Clave.matrizK
         for i in range(len(ki)):
             texto="K"+str(i)+" "+str(ki[i])
             self.logFile.append(texto)
+        self.logFile.append("\n")
         return ki
+    def getKi(self):
+        return self.obtener_Clave.matrizK
 
     def getLog(self):
         for i in self.logFile:
@@ -61,24 +69,36 @@ class Encriptar:
         return self.funciones_Secundarias.getL()
 
     def cifradoFinal(self):
+        self.logFile.append("\n")
+        self.logFile.append("\n")
+        self.logFile.append("\n")
+        self.logFile.append("-----------------------------------------------------------------------")
         self.logFile.append("Paso Final")
         self.switch=[self.getL(),self.getR()]
         self.logFile.append("L0: "+str(self.getL()))
         self.logFile.append("R0: "+str(self.getR()))
-        for i in range(len(self.getKiLog())):
+        for i in range(len(self.getKi())):
             expansion=self.funciones_Secundarias.expansionE(self.switch[1])
             self.logFile.append("Expansion E: "+str(self.funciones_Secundarias.agrupasicon(expansion)))
 
-            k=self.getKiLog()[i]
+            k=self.getKi()[i]
+            self.logFile.append("\n")
+            self.logFile.append("-----------------------------------------------------------------------")
             self.logFile.append("K"+str(i)+": "+str(self.getR()))
 
             ki_er0=self.final.xor(expansion,k)
+            self.logFile.append("\n")
+            self.logFile.append("-----------------------------------------------------------------------")
             self.logFile.append("KI ⊕ ER0: "+str(self.final.agrupasicon(ki_er0)))
 
             cajas=self.final.ultimoPaso(ki_er0)
+            self.logFile.append("\n")
+            self.logFile.append("-----------------------------------------------------------------------")
             self.logFile.append("Aplicando cajas: "+str(self.final.agrupasicon4(cajas)))
 
             permutacion=self.final.agrupasicon4(self.final.permutacion(cajas))
+            self.logFile.append("\n")
+            self.logFile.append("-----------------------------------------------------------------------")
             self.logFile.append("F(R"+str(i+1)+",k"+ str(i+1) +")"+str(permutacion))
 
             r0=permutacion.replace(" ","")
