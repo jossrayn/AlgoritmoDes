@@ -94,10 +94,3 @@ class ClavesDes:
             for j in i:
                 var=var+j
             self.matrizK.append(var)
-        self.printearK(self.matrizK)
-    
-    def printearK(self,matriz):
-        print("\n")
-        print("K")
-        for i in range(len(matriz)):        
-            print("["+str(matriz[i])+"]")

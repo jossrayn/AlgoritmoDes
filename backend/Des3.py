@@ -2,16 +2,6 @@ class DesFinal:
     def __init__(self):
         #principal("0000 0000 0000 0000 0000 0001 0111 0101 0100 0010 0000 0100","0001 1011 0000 0010 1110 1111 1111 1100 0111 0000 0111 0010 ")#
          self.listaConversiones=[1,10,11,100,101,110,111,1000,1001,1010,1011,1100,1101,1110,1111]
-
-    def principal(self,ri,ki):
-        print("R",ri)
-        print("K",ki)
-        Xor=self.xor(ri,ki)
-        print("Xor",self.agrupasicon4(Xor))
-        print("Agrupasicon",self.agrupasicon(Xor))
-        cajas=self.ultimoPaso(Xor)
-        print("Aplicando cajas a R0",self.agrupasicon4(cajas))
-        print("Permutacion",self.agrupasicon4(self.permutacion(cajas)))
         
     def xor(self,ri,ki):
         ri=ri.replace(" ","")
