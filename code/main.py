@@ -41,11 +41,11 @@ def mainWindow():
 
     #Mensaje encriptado
     label = Label(main_window,text="Mensaje encriptado", fg="#000000",bg="#c1e8d5",font=('Corbel',18)).place(x=350,y=710)
+    global encrypted
     encrypted=StringVar()
     global entry_message_encrypted
-    entry_message_encrypted=Text(main_window,height=2,width=52,bg="#ffffff",state=DISABLED,fg="#0ECA9B",font=('Corbel',16))
+    entry_message_encrypted=Entry(main_window,width=52,textvariable=encrypted,bg="#ffffff",state=DISABLED,fg="#0ECA9B",font=('Corbel',16))
     
-    entry_message_encrypted.place(x=157,y=760)
 
     #botón de play
     img_btn_play=Image.open("../resources/play.png")
@@ -65,9 +65,13 @@ def execute():
         for value in values: 
             log.insert(END, value) 
 
-        cypher_message = values[-1]
+        cypher_message = cypher.getMensaje()
 
-        entry_message_encrypted.insert(tk.END,cypher_message)
+        encrypted.set(cypher_message)
+        entry_message_encrypted.place(x=157,y=760)
+
+        key.set("")
+        message.set("")
 
     else:
         messagebox.showerror(title="Error! Espacios incompletos.", message="¨Por favor complete los campos de mensaje y clave.")
