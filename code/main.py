@@ -7,6 +7,7 @@ from PIL import Image, ImageTk
 import os.path
 
 from encriptar import *
+from desencriptar import * 
 
 def mainWindow():
     global main_window
@@ -45,30 +46,49 @@ def mainWindow():
     encrypted=StringVar()
     global entry_message_encrypted
     entry_message_encrypted=Entry(main_window,width=52,textvariable=encrypted,bg="#ffffff",state=DISABLED,fg="#0ECA9B",font=('Corbel',16))
-    
 
-    #botón de play
+    #botón de desencriptar
+    img_btn_back=Image.open("../resources/back.png")
+    img_resize_btn_back = img_btn_back.resize((30, 30), Image.ANTIALIAS)
+    img_btn_back_aux = ImageTk.PhotoImage(img_resize_btn_back)
+    btn_back=Button(main_window,bg="white",image=img_btn_back_aux,relief=FLAT,highlightthickness=0, bd=0,command=lambda:execute(2)).place(x=405,y=115)    
+
+    #botón de encriptar
     img_btn_play=Image.open("../resources/play.png")
     img_resize_btn_play = img_btn_play.resize((30, 30), Image.ANTIALIAS)
     img_btn_play_aux = ImageTk.PhotoImage(img_resize_btn_play)
-    btn_play=Button(main_window,bg="white",image=img_btn_play_aux,relief=FLAT,highlightthickness=0, bd=0,command=execute).place(x=430,y=115)
+    btn_play=Button(main_window,bg="white",image=img_btn_play_aux,relief=FLAT,highlightthickness=0, bd=0,command=lambda:execute(1)).place(x=445,y=115)
 
 
     main_window.mainloop()
 
-def execute():
+def execute(type):
     if(message.get()!="" and key.get()!=""):
-        cypher = Encriptar(key.get(),message.get())
-        cypher.main()
-        values = cypher.logFile
-        # Insert elements into the listbox 
-        for value in values: 
-            log.insert(END, value) 
+        if (type == 1):
+            cypher = Encriptar(key.get(),message.get())
+            cypher.main()
+            values = cypher.logFile
+            # Insert elements into the listbox 
+            for value in values: 
+                log.insert(END, value) 
 
-        cypher_message = cypher.getMensaje()
+            cypher_message = cypher.getMensaje()
 
-        encrypted.set(cypher_message)
-        entry_message_encrypted.place(x=157,y=760)
+            encrypted.set(cypher_message)
+            entry_message_encrypted.place(x=157,y=760)
+        else:
+            descypher = Desencriptar(key.get(),message.get())
+            descypher.main()
+            values = descypher.logFile
+            # Insert elements into the listbox 
+            for value in values: 
+                log.insert(END, value) 
+
+            cypher_message = descypher.getMensaje()
+
+            encrypted.set(cypher_message)
+            entry_message_encrypted.place(x=157,y=760)
+        
 
         key.set("")
         message.set("")
